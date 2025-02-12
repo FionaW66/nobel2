@@ -98,6 +98,8 @@ following order: `Low`, `Middle`, `High`.
 fav_food2 <- fav_food2 %>% 
   mutate(SES = factor(SES, levels = c("Low", "Middle", "High")))
 str(fav_food2)
+fav_food3 <- fav_food2 %>% 
+  mutate(SES_numeric = as.numeric(SES))
 # add code here
 ```
 
@@ -105,7 +107,7 @@ str(fav_food2)
 * Write out the resulting data frame to `favourite-food.rds` in the `data/` folder.
 
 ```{r save_RDS}
-write_rds(fav_food2, file = "data-raw/favourite-food.rds")
+write_rds(fav_food3, file = "data-raw/favourite-food.rds")
 # add code here
 ```
 
@@ -113,7 +115,7 @@ write_rds(fav_food2, file = "data-raw/favourite-food.rds")
 variable types. Are they as you left them?
 
 ```{r check_RDS}
-fav_food2_check = read_rds("data-raw/favourite-food.rds")
+fav_food3_check = read_rds("data-raw/favourite-food.rds")
 # add code here
 ```
 
