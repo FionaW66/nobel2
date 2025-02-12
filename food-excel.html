@@ -9,9 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="YOU" />
+<meta name="author" content="Fiona Wang" />
 
-<meta name="date" content="2025-01-15" />
+<meta name="date" content="2025-02-11" />
 
 <title>Favorite foods</title>
 
@@ -1480,8 +1480,8 @@ border-radius: 0px;
 
 
 <h1 class="title toc-ignore">Favorite foods</h1>
-<h4 class="author">YOU</h4>
-<h4 class="date">2025-01-15</h4>
+<h4 class="author">Fiona Wang</h4>
+<h4 class="date">2025-02-11</h4>
 
 </div>
 
@@ -1496,7 +1496,7 @@ library(readxl)</code></pre>
 <li>Read in the Excel file called <code>favourite-food.xlsx</code> from
 the <code>data-raw/</code> folder.</li>
 </ul>
-<pre class="r"><code>fav_food &lt;- read_excel(___)
+<pre class="r"><code>fav_food &lt;- read_excel(path = &quot;data-raw/favourite-food.xlsx&quot;)
 fav_food</code></pre>
 </div>
 <div id="step-2-clean-the-data" class="section level2">
@@ -1506,7 +1506,14 @@ fav_food</code></pre>
 happy with variable types. Modify the <code>read_excel</code> function
 to take care of these issues.</li>
 </ul>
-<pre class="r"><code>fav_food &lt;- read_excel(___, ___)
+<pre class="r"><code>fav_food &lt;- read_excel(
+  path = &quot;data-raw/favourite-food.xlsx&quot;,
+  na = c(&quot;&quot;, &quot;N/A&quot;, &quot;99999&quot;))
+fav_food &lt;- fav_food %&gt;% 
+  mutate(AGE = case_when(
+    AGE == &quot;five&quot; ~ 5,
+    TRUE ~ as.numeric(AGE)
+  ))
 fav_food </code></pre>
 <ul>
 <li>Convert the SES (socioeconomic status) to a factor variables with
