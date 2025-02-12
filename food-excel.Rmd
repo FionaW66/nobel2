@@ -21,7 +21,7 @@ library(forcats)
 
 * Read in the Excel file called `favourite-food.xlsx` from the `data-raw/` folder.
 
-```{r label-me1, eval=FALSE}
+```{r read_excel, eval=FALSE}
 fav_food <- read_excel(path = "data-raw/favourite-food.xlsx")
 fav_food
 ```
@@ -30,7 +30,7 @@ fav_food
 
 * Clean up the missing data (`NA`s) and make sure you're happy with variable types. Modify the `read_excel` function to take care of these issues.
 
-```{r label-me2, eval=FALSE, warning =FALSE}
+```{r clean, eval=FALSE, warning =FALSE}
 fav_food <- read_excel(
   path = "data-raw/favourite-food.xlsx",
   na = c("", "N/A", "99999"))
@@ -45,7 +45,7 @@ fav_food
 * Convert the SES (socioeconomic status) to a factor variables with levels in the 
 following order: `Low`, `Middle`, `High`.
 
-```{r label-me3}
+```{r SES_factor}
 fav_food <- fav_food %>% 
   mutate(SES = factor(SES, levels = c("Low", "Middle", "High")))
 
@@ -56,7 +56,7 @@ fav_food <- fav_food %>%
 
 * Write out the resulting data frame to `favourite-food.csv` in the `data/` folder.
 
-```{r label-me4}
+```{r Save_CSV}
 write_csv(fav_food, file = "data-raw/favourite-food.csv")
 # add code here
 ```
@@ -66,7 +66,7 @@ write_csv(fav_food, file = "data-raw/favourite-food.csv")
 * Finally, read `favourite-food.csv` back in from the `data/` folder and 
 observe the variable types. Are they as you left them?
 
-```{r label-me5}
+```{r check_csv}
 fav_food_check <- read.csv("data-raw/favourite-food.csv")
 # add code here
 ```
@@ -76,9 +76,17 @@ fav_food_check <- read.csv("data-raw/favourite-food.csv")
 ## Step 1: Read the Data
 * Similar to Part 1, read  the Excel file called `favourite-food.xlsx` from the `data-raw/` folder, and handle missing data and variable types.
 
-```{r label-me6, eval=FALSE}
-fav_food <- read_excel(___, ___)
-fav_food 
+```{r read_xlsx, eval=FALSE, warning = FALSE}
+fav_food2 <- read_excel(path = "data-raw/favourite-food.xlsx",
+                       na = c("", "99999", "N/A"))
+fav_food2 <- fav_food2 %>% 
+  mutate(AGE = case_when(
+                         AGE == "five" ~ 5,
+                         TRUE ~ as.numeric(AGE)
+                       ))
+                       
+fav_food2 
+str(fav_food2)
 ```
 
 ## Step 2: Adjust Variable Types
@@ -86,21 +94,26 @@ fav_food
 * Convert SES (socioeconomic status) to a factor variables with levels in the 
 following order: `Low`, `Middle`, `High`.
 
-```{r label-me7}
+```{r SES_convert}
+fav_food2 <- fav_food2 %>% 
+  mutate(SES = factor(SES, levels = c("Low", "Middle", "High")))
+str(fav_food2)
 # add code here
 ```
 
 ## Step 3: Save to RDS
 * Write out the resulting data frame to `favourite-food.rds` in the `data/` folder.
 
-```{r label-me8}
+```{r save_RDS}
+write_rds(fav_food2, file = "data-raw/favourite-food.rds")
 # add code here
 ```
 
 * Read `favourite-food.rds` back in from the `data/` folder and observe the 
 variable types. Are they as you left them?
 
-```{r label-me9}
+```{r check_RDS}
+fav_food2_check = read_rds("data-raw/favourite-food.rds")
 # add code here
 ```
 
