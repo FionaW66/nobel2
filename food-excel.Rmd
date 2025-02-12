@@ -11,6 +11,7 @@ output:
 ```{r load-packages, message=FALSE}
 library(tidyverse)
 library(readxl)
+library(forcats)
 ```
 
 # Part 1: Excel to CSV Workflow
@@ -45,6 +46,9 @@ fav_food
 following order: `Low`, `Middle`, `High`.
 
 ```{r label-me3}
+fav_food <- fav_food %>% 
+  mutate(SES = factor(SES, levels = c("Low", "Middle", "High")))
+
 # add code here
 ```
 
@@ -53,6 +57,7 @@ following order: `Low`, `Middle`, `High`.
 * Write out the resulting data frame to `favourite-food.csv` in the `data/` folder.
 
 ```{r label-me4}
+write_csv(fav_food, file = "data-raw/favourite-food.csv")
 # add code here
 ```
 
@@ -62,6 +67,7 @@ following order: `Low`, `Middle`, `High`.
 observe the variable types. Are they as you left them?
 
 ```{r label-me5}
+fav_food_check <- read.csv("data-raw/favourite-food.csv")
 # add code here
 ```
 
