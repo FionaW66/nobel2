@@ -26,6 +26,7 @@ sales <- sales %>%
   rename(id = `This file contains information on sales.`)
 sales <- sales %>% 
   rename(n = ...2)
+tibble(sales)
 ```
 
 * **Stretch goal:** Manipulate the sales data such such that it looks like the 
